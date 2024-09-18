@@ -5,22 +5,32 @@ class UsersAuth extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        children: [
-          const Text(
-            'Telefon Nomrenizi Daxil Edin',
-            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+    return Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const Text(
+                'Enter your phone number',
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 20),
+              const TextField(
+                decoration: InputDecoration(
+                  hintText: 'Phone Number',
+                ),
+              ),
+              const SizedBox(height: 16),
+              TextButton(
+                onPressed: () {},
+                child: const Text('Login'),
+              ),
+            ],
           ),
-          const SizedBox(height: 15),
-          const TextField(
-            decoration: InputDecoration(
-              hintText: 'Daxil Edin',
-            ),
-          ),
-          const SizedBox(height: 16),
-          TextButton(onPressed: () {}, child: const Text('Əlavə Et'))
-        ],
+        ),
       ),
     );
   }
