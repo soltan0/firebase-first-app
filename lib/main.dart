@@ -2,9 +2,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'cubits/pinput/pinput_cubit.dart';
 import 'cubits/users/users_cubit.dart';
 import 'data/services/users_service.dart';
-import 'ui/screens/users/users_screen.dart';
+import 'ui/screens/users/verification.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,9 +32,14 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: BlocProvider(
-        create: (_) => UsersCubit(UsersService())..getUsers(),
-        child: const UsersScreen(),
+      home: MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (context) => PinputCubit()),
+          BlocProvider(
+            create: (context) => UsersCubit(UsersService())..getUsers(),
+          ),
+        ],
+        child: const Verification(),
       ),
     );
   }
