@@ -9,12 +9,15 @@ part 'users_state.dart';
 class UsersCubit extends Cubit<UsersState> {
   UsersCubit(this._usersService) : super(UsersInitial());
 
+  
+  // ignore: unused_field
   final UsersService _usersService;
 
   final nameController = TextEditingController();
   final phoneController = TextEditingController();
   final photoController = TextEditingController();
   final aboutController = TextEditingController();
+  
 
   // Stream<QuerySnapshot<Map<String, dynamic>>> get users =>
   //     _usersService.getUsers();
