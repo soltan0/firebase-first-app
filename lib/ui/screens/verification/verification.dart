@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pinput/pinput.dart';
 
+import '../../../cubits/auth/auth_cubit.dart';
 import '../../../cubits/pinput/pinput_cubit.dart';
-import '../../widgets/global_profile_photo.dart'; 
+
 class Verification extends StatelessWidget {
   const Verification({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<AuthCubit>();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Verification'),
@@ -22,24 +24,16 @@ class Verification extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Pinput(
-                    length: 4,
+                    length: 6,
+                    controller: cubit.otpController,
                     onChanged: (value) {
                       context.read<PinputCubit>().otpChanged(value);
                     },
                   ),
                   const SizedBox(height: 20),
                   ElevatedButton(
-                    onPressed: otp.length == 4
-                        ? () {
-                            print('OTP entered: $otp');
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const GlobalProfilePhoto(),
-                              ),
-                            );
-                          }
-                        : null, 
+                    onPressed:
+                        otp.length == 6 ? () => cubit.verify(context) : null,
                     child: const Text('Submit'),
                   ),
                 ],

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
-class UsersAuth extends StatelessWidget {
-  const UsersAuth({super.key});
+import '../../widgets/global_profile_photo.dart';
+
+class EditProfileScreen extends StatelessWidget {
+  const EditProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,21 +15,24 @@ class UsersAuth extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Text(
-                'Enter your phone number',
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 20),
+              const GlobalProfilePhoto(radius: 80),
+              const SizedBox(height: 24),
               const TextField(
                 decoration: InputDecoration(
-                  hintText: 'Phone Number',
+                  hintText: 'Enter namer',
+                ),
+              ),
+              const SizedBox(height: 16),
+              const TextField(
+                decoration: InputDecoration(
+                  hintText: 'Enter about',
                 ),
               ),
               const SizedBox(height: 16),
               TextButton(
                 onPressed: () {},
-                child: const Text('Login'),
-              ),
+                child: const Text('Continue'),
+              )
             ],
           ),
         ),
