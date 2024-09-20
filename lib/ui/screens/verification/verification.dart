@@ -1,9 +1,11 @@
+import 'package:firebase_first_app/utils/constants/padding_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pinput/pinput.dart';
 
 import '../../../cubits/auth/auth_cubit.dart';
 import '../../../cubits/pinput/pinput_cubit.dart';
+import '../../../utils/constants/sized_box_constant.dart';
 
 class Verification extends StatelessWidget {
   const Verification({super.key});
@@ -19,7 +21,7 @@ class Verification extends StatelessWidget {
         builder: (context, otp) {
           return Center(
             child: Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: PaddingConstants.a16,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -30,7 +32,7 @@ class Verification extends StatelessWidget {
                       context.read<PinputCubit>().otpChanged(value);
                     },
                   ),
-                  const SizedBox(height: 20),
+                  SizedBoxConstants.h20,
                   ElevatedButton(
                     onPressed:
                         otp.length == 6 ? () => cubit.verify(context) : null,

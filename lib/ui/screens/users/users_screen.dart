@@ -1,3 +1,5 @@
+import 'package:firebase_first_app/utils/constants/padding_constants.dart';
+import 'package:firebase_first_app/utils/constants/sized_box_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -23,7 +25,7 @@ class UsersScreen extends StatelessWidget {
             final users = usersCubit.users?.docs ?? [];
             return ListView.separated(
               itemCount: users.length,
-              separatorBuilder: (_, i) => const SizedBox(height: 10),
+              separatorBuilder: (_, i) => SizedBoxConstants.h10,
               itemBuilder: (_, i) {
                 final user = users[i].data();
                 return ListTile(
@@ -44,7 +46,7 @@ class UsersScreen extends StatelessWidget {
             isScrollControlled: true,
             builder: (_) {
               return Padding(
-                padding: const EdgeInsets.all(20.0) +
+                padding: PaddingConstants.a20 +
                     EdgeInsets.only(
                         bottom: MediaQuery.of(context).viewInsets.bottom),
                 child: Column(
@@ -56,28 +58,28 @@ class UsersScreen extends StatelessWidget {
                         hintText: 'Name',
                       ),
                     ),
-                    const SizedBox(height: 16),
+                    SizedBoxConstants.h16,
                     TextField(
                       controller: usersCubit.phoneController,
                       decoration: const InputDecoration(
                         hintText: 'Phone',
                       ),
                     ),
-                    const SizedBox(height: 16),
+                    SizedBoxConstants.h16,
                     TextField(
                       controller: usersCubit.photoController,
                       decoration: const InputDecoration(
                         hintText: 'Photo URL',
                       ),
                     ),
-                    const SizedBox(height: 16),
+                    SizedBoxConstants.h16,
                     TextField(
                       controller: usersCubit.aboutController,
                       decoration: const InputDecoration(
                         hintText: 'About',
                       ),
                     ),
-                    const SizedBox(height: 16),
+                    SizedBoxConstants.h16,
                     TextButton(
                       onPressed: () => usersCubit.addUsers(context),
                       child: const Text('Add'),

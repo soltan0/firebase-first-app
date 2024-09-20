@@ -1,3 +1,4 @@
+import 'package:firebase_first_app/utils/constants/sized_box_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -21,14 +22,14 @@ class UsersAuth extends StatelessWidget {
                 'Enter your phone number',
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
               ),
-              const SizedBox(height: 20),
+              SizedBoxConstants.h20,
               TextField(
                 controller: cubit.phoneController,
                 decoration: const InputDecoration(
                   hintText: 'Phone Number',
                 ),
               ),
-              const SizedBox(height: 16),
+              SizedBoxConstants.h16,
               TextButton(
                 onPressed: () => cubit.signIn(context),
                 child: const Text('Login'),
