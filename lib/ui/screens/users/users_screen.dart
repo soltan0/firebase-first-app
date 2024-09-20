@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../cubits/users/users_cubit.dart';
+import '../../../helpers/screens.dart';
 import '../../widgets/global_profile_photo.dart';
 
 class UsersScreen extends StatelessWidget {
@@ -11,7 +13,24 @@ class UsersScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final usersCubit = context.read<UsersCubit>();
     return Scaffold(
-      appBar: AppBar(title: const Text('Users')),
+      appBar: AppBar(
+        title: const Text('Users'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout_rounded),
+            onPressed: () async {
+              await FirebaseAuth.instance.signOut();
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Screens.initial,
+                ),
+                (page) => page.isCurrent,
+              );
+            },
+          )
+        ],
+      ),
       body: BlocBuilder<UsersCubit, UsersState>(
         builder: (context, state) {
           if (state is UsersLoading) {

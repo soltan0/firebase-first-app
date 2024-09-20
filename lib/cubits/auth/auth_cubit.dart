@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,7 +14,7 @@ class AuthCubit extends Cubit<AuthState> {
 
   String? _verificationId;
 
-  final phoneController = TextEditingController(text: '+994998906200');
+  final phoneController = TextEditingController();
   final otpController = TextEditingController();
 
   void signIn(BuildContext context) async {
@@ -45,12 +46,32 @@ class AuthCubit extends Cubit<AuthState> {
       smsCode: otpController.text,
     );
 
-    await auth.signInWithCredential(credential);
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => Screens.users,
-      ),
+    final userCredential = await auth.signInWithCredential(credential);
+    await _createUserCollectionForUser(userCredential).then((v) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Screens.editProfile,
+        ),
+      );
+    }).catchError((e) {
+      log('$e');
+    });
+  }
+
+  Future<void> _createUserCollectionForUser(
+    UserCredential userCredential,
+  ) async {
+    final user = userCredential.user!;
+
+    await FirebaseFirestore.instance.collection('users').doc(user.uid).set(
+      {
+        'id': user.uid,
+        'name': user.displayName,
+        'phone': user.phoneNumber,
+        'photo': user.photoURL,
+      },
+      SetOptions(merge: true),
     );
   }
 

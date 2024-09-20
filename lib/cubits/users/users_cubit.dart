@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -9,7 +10,6 @@ part 'users_state.dart';
 class UsersCubit extends Cubit<UsersState> {
   UsersCubit(this._usersService) : super(UsersInitial());
 
-  
   // ignore: unused_field
   final UsersService _usersService;
 
@@ -17,7 +17,6 @@ class UsersCubit extends Cubit<UsersState> {
   final phoneController = TextEditingController();
   final photoController = TextEditingController();
   final aboutController = TextEditingController();
-  
 
   // Stream<QuerySnapshot<Map<String, dynamic>>> get users =>
   //     _usersService.getUsers();
@@ -31,7 +30,10 @@ class UsersCubit extends Cubit<UsersState> {
   void getUsers() async {
     try {
       emit(UsersLoading());
-      users = await FirebaseFirestore.instance.collection('users').get();
+      users = await FirebaseFirestore.instance
+          .collection('users')
+          .where('id', isNotEqualTo: FirebaseAuth.instance.currentUser!.uid)
+          .get();
       emit(UsersSuccess());
     } catch (e) {
       emit(UsersError());
