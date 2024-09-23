@@ -11,6 +11,7 @@ void main() async {
       appId: '1:545816589659:android:2ebccaa8111f1c5fa7567e',
       messagingSenderId: '545816589659',
       projectId: 'fir-first-app-7335d',
+      storageBucket: 'gs://fir-first-app-7335d.appspot.com'
     ),
   );
   runApp(const MyApp());

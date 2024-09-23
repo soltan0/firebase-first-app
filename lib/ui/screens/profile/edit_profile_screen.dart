@@ -20,7 +20,18 @@ class EditProfileScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const GlobalProfilePhoto(radius: 80),
+                  StreamBuilder(
+                    initialData: null,
+                    stream: cubit.imageSubject.stream,
+                    builder: (context, snapshot) {
+                      return GlobalProfilePhoto(
+                        radius: 80,
+                        isEditable: true,
+                        file: snapshot.data,
+                        onPressed: () => cubit.pickImage(),
+                      );
+                    }
+                  ),
                   const SizedBox(height: 24),
                   TextField(
                     controller: cubit.nameController,
